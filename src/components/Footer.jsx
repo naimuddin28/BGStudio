@@ -10,9 +10,14 @@ export default function Footer() {
             <Scissors className="h-5 w-5 text-blue-600" />
             <span className="font-bold text-lg text-gray-900">BG Studio</span>
           </div>
-          <p className="text-gray-500 text-sm">
-            Built with React, Vite, and Hugging Face Transformers.js
-          </p>
+          <div className="text-center mb-4 md:mb-0">
+            <p className="text-gray-900 text-sm font-medium mb-1">
+              Developed by <a href="https://www.linkedin.com/in/uddinnaim/" target="_blank" rel="noreferrer" className="text-blue-600 hover:text-blue-700 hover:underline">Md Naim Uddin</a>
+            </p>
+            <p className="text-gray-500 text-xs">
+              Built with React, Vite & Transformers.js
+            </p>
+          </div>
           <div className="flex space-x-6 mt-4 md:mt-0 text-sm font-medium text-gray-500">
             <a href="#" className="hover:text-gray-900">Privacy</a>
             <a href="#" className="hover:text-gray-900">Terms</a>
