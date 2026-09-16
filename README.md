@@ -18,14 +18,14 @@ BG Studio is a free, API-free AI background remover that runs entirely in your b
 
 ## AI Model Used
 
-This project uses the **RMBG-1.4** model by BRIA AI (`briaai/RMBG-1.4`), which is a state-of-the-art background removal model.
+This project uses the **ModNet** model (`Xenova/modnet`), which is a state-of-the-art, highly efficient background removal model.
 Through Hugging Face's `transformers.js`, the model is loaded and run directly in your browser.
 
-**Model License:** BRIA RMBG-1.4 is available under a non-commercial license for open-source non-commercial use. Check the official model page for detailed licensing.
+**Model License:** Available under open-source non-commercial use terms. Check the official model page for detailed licensing.
 
 ## How Browser Inference Works
 
-When you upload an image, a Web Worker is spawned. The worker downloads the `briaai/RMBG-1.4` ONNX model from the Hugging Face Hub (cached after the first download) and processes the image using ONNX Runtime Web. The model outputs an alpha mask which is then applied to the original image to create a transparent foreground. This happens without any server backend.
+When you upload an image, a Web Worker is spawned. The worker downloads the `Xenova/modnet` ONNX model from the Hugging Face Hub (cached after the first download) and processes the image using ONNX Runtime Web. The model outputs an alpha mask which is then applied to the original image to create a transparent foreground. This happens without any server backend.
 
 ## Local Development
 

@@ -5,8 +5,8 @@ env.useBrowserCache = true;
 
 class PipelineSingleton {
   static task = 'image-segmentation';
-  // Use a smaller model like modnet if RMBG-1.4 is too heavy, or stick to RMBG-1.4
-  static model = 'briaai/RMBG-1.4';
+  // Use modnet which is perfectly supported by transformers.js for background removal
+  static model = 'Xenova/modnet';
   static instance = null;
 
   static async getInstance(progress_callback = null) {
