@@ -31,8 +31,11 @@ function App() {
         setProcessedImageUrl(result);
         setIsProcessing(false);
       } else if (status === 'error') {
-        alert('Error processing image. Please try again.');
+        const errorMsg = e.data.error || 'Unknown error occurred.';
+        console.error("Pipeline error:", e.data);
+        alert(`Error processing image: ${errorMsg}`);
         setIsProcessing(false);
+        setImageFile(null); // Reset on error
       }
     };
 
