@@ -1,31 +1,21 @@
 import { env, pipeline, RawImage } from '@huggingface/transformers';
 
-// Configure transformers to use local/browser env
 env.allowLocalModels = false;
 env.useBrowserCache = true;
-// Set WASM paths to a CDN to ensure they load properly in production (e.g., Vercel)
-env.backends.onnx.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0/dist/';
 
 class PipelineSingleton {
   static task = 'image-segmentation';
+  // Use a smaller model like modnet if RMBG-1.4 is too heavy, or stick to RMBG-1.4
   static model = 'briaai/RMBG-1.4';
   static instance = null;
 
   static async getInstance(progress_callback = null) {
     if (this.instance === null) {
-      try {
-        console.log("Trying to load model with WebGPU...");
-        this.instance = await pipeline(this.task, this.model, {
-          progress_callback,
-          device: 'webgpu', 
-        });
-      } catch (e) {
-        console.warn("WebGPU failed, falling back to WASM...", e);
-        this.instance = await pipeline(this.task, this.model, {
-          progress_callback,
-          device: 'wasm',
-        });
-      }
+      // Use WASM for maximum compatibility across browsers/devices
+      this.instance = await pipeline(this.task, this.model, {
+        progress_callback,
+        device: 'wasm',
+      });
     }
     return this.instance;
   }
