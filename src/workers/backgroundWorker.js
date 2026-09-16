@@ -56,11 +56,18 @@ self.addEventListener('message', async (event) => {
       
       const maskCanvas = new OffscreenCanvas(mask.width, mask.height);
       const maskCtx = maskCanvas.getContext('2d');
-      const maskImageData = new ImageData(
-        new Uint8ClampedArray(mask.data),
-        mask.width,
-        mask.height
-      );
+      
+      // Convert 1-channel mask to 4-channel RGBA for ImageData
+      const rgbaData = new Uint8ClampedArray(mask.width * mask.height * 4);
+      for (let i = 0; i < mask.data.length; i++) {
+        const val = mask.data[i];
+        rgbaData[i * 4] = val;     // R
+        rgbaData[i * 4 + 1] = val; // G
+        rgbaData[i * 4 + 2] = val; // B
+        rgbaData[i * 4 + 3] = val; // A (This is the important one for masking)
+      }
+      
+      const maskImageData = new ImageData(rgbaData, mask.width, mask.height);
       maskCtx.putImageData(maskImageData, 0, 0);
       
       const imgBitmap = await createImageBitmap(blob);
